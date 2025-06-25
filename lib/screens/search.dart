@@ -1,71 +1,19 @@
 import 'package:flutter/material.dart';
 
-class HealthTopic {
-  final String title;
-  final IconData icon;
-  final String subtitle;
-
-  HealthTopic({
-    required this.title,
-    required this.icon,
-    required this.subtitle,
-  });
-}
-
-class SearchPage extends StatefulWidget {
+class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
-
-  @override
-  State<SearchPage> createState() => _SearchPageState();
-}
-
-class _SearchPageState extends State<SearchPage> {
-  final List<HealthTopic> topics = [
-    HealthTopic(
-      title: "Cramps Relief Tips",
-      icon: Icons.favorite,
-      subtitle: "Ease the pain with natural methods",
-    ),
-    HealthTopic(
-      title: "Understanding PCOD",
-      icon: Icons.female,
-      subtitle: "Know the symptoms and solutions",
-    ),
-    HealthTopic(
-      title: "PMS Explained",
-      icon: Icons.mood_bad,
-      subtitle: "What to expect and how to cope",
-    ),
-    HealthTopic(
-      title: "Bloating Remedies",
-      icon: Icons.local_hospital,
-      subtitle: "Tips to feel light and fresh",
-    ),
-    HealthTopic(
-      title: "When to See a Doctor",
-      icon: Icons.medical_services,
-      subtitle: "Know when to seek help",
-    ),
-    HealthTopic(
-      title: "Diet During Periods",
-      icon: Icons.restaurant_menu,
-      subtitle: "Foods that help reduce discomfort",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.pink[50],
       appBar: AppBar(
-        backgroundColor: Colors.pink.shade300,
-        elevation: 5,
         title: const Text(
-          "EaseHer Topics",
-          style: TextStyle(
-              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+          "EaseHer Learning Hub",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        backgroundColor: Colors.transparent,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -75,97 +23,140 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
         ),
+        elevation: 5,
+        leading: const BackButton(color: Colors.white),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
           children: [
+            // 🩺 Phase Info Card
             Container(
+              padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.pink.shade100,
-                    blurRadius: 6,
-                    offset: Offset(0, 3),
+                color: Colors.pink[100],
+                borderRadius: BorderRadius.circular(18),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "🌼 You’re in the Luteal Phase",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  SizedBox(height: 6),
+                  Text(
+                    "Mood swings and cravings may occur. Take extra care ❤️",
+                    style: TextStyle(fontSize: 14, color: Colors.black87),
                   ),
                 ],
               ),
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  icon: Icon(Icons.search, color: Colors.pink),
-                  hintText: "Search health topics...",
-                  border: InputBorder.none,
-                ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // 📊 Mini Stats for PCOS/PCOD
+            IntrinsicHeight(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  buildMiniStat("Common Symptom", "Irregular Periods"),
+                  buildMiniStat("Awareness", "Only 50%"),
+                  buildMiniStat("Impact", "1 in 5 Women"),
+                ],
               ),
             ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: ListView.builder(
-                itemCount: topics.length,
-                itemBuilder: (context, index) {
-                  final topic = topics[index];
-                  return Card(
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 8),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: InkWell(
-                      onTap: () {
-                        print("Tapped on ${topic.title}");
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Row(
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.pink.shade100,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                topic.icon,
-                                color: Colors.pink.shade600,
-                                size: 28,
-                              ),
-                            ),
-                            const SizedBox(width: 16),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    topic.title,
-                                    style: const TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    topic.subtitle,
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: Colors.grey.shade700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
+
+            const SizedBox(height: 24),
+
+            // ✨ Quote
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                color: Colors.pink.shade100,
               ),
+              child: const Text(
+                "💫 “Your cycle is not a flaw, it's a rhythm of strength. Honor it.”",
+                style: TextStyle(fontSize: 15, fontStyle: FontStyle.italic),
+              ),
+            ),
+
+            const SizedBox(height: 24),
+
+            const Text("📚 PCOD & PCOS Articles",
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87)),
+
+            const SizedBox(height: 10),
+            buildArticleCard("Understanding PCOD",
+                "Symptoms, causes, and when to seek help."),
+            buildArticleCard(
+                "PCOD vs PCOS", "How they differ and why it matters."),
+            buildArticleCard("Healthy Lifestyle Tips",
+                "Foods, exercises & habits that help manage PCOS."),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildMiniStat(String title, String value) {
+    return Expanded(
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.pink.shade100,
+              blurRadius: 4,
+              offset: const Offset(0, 3),
             )
           ],
         ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              value,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildArticleCard(String title, String subtitle) {
+    return Card(
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 8),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        title: Text(title,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 6.0),
+          child: Text(subtitle,
+              style: const TextStyle(fontSize: 13, color: Colors.black87)),
+        ),
+        trailing: const Icon(Icons.arrow_forward_ios, size: 16),
+        onTap: () {
+          // Future: navigate to article detail
+        },
       ),
     );
   }

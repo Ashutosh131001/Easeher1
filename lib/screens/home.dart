@@ -1,5 +1,7 @@
 import 'package:easeher_/screens/ai.dart';
+import 'package:easeher_/screens/cycle.dart';
 import 'package:easeher_/screens/loginpage.dart';
+import 'package:easeher_/screens/settings.dart';
 import 'package:easeher_/widgets/card.dart';
 import 'package:flutter/material.dart';
 import 'package:horizontal_week_calendar/horizontal_week_calendar.dart';
@@ -21,10 +23,6 @@ class _homeState extends State<home> {
       appBar: AppBar(
         backgroundColor: Colors.pink.shade300,
         elevation: 5,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.white),
-          onPressed: () {},
-        ),
         title: const Text(
           "EaseHer",
           style: TextStyle(
@@ -37,7 +35,12 @@ class _homeState extends State<home> {
           IconButton(
             icon:
                 const Icon(Icons.account_circle, color: Colors.white, size: 30),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EaseHerSettings()),
+              );
+            },
           ),
         ],
         flexibleSpace: Container(
@@ -345,7 +348,7 @@ class _homeState extends State<home> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Your Personal AI',
+                    'Track Your Cycle',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 16,
@@ -361,7 +364,7 @@ class _homeState extends State<home> {
                     child: ListTile(
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => ai()));
+                            MaterialPageRoute(builder: (context) => Cycle()));
                       },
                       contentPadding: EdgeInsets.zero,
                       leading: Container(
@@ -371,19 +374,19 @@ class _homeState extends State<home> {
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
-                          Icons.smart_toy, // or Icons.memory
+                          Icons.track_changes_rounded,
                           color: Colors.white,
                           size: 30,
                         ),
                       ),
                       title: const Text(
-                        'Chat with your AI',
+                        'Track your cycle',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      subtitle: const Text('Your 24x7 Wellness Assistant'),
+                      subtitle: const Text('Stay updated about your cycle '),
                       trailing: const Icon(Icons.arrow_forward_ios, size: 16),
                     ),
                   ),

@@ -21,7 +21,7 @@ class _loginState extends State<login> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text("Please fill in both email and password"),
-          backgroundColor: Colors.pink,
+          backgroundColor: Colors.pink ,
         ),
       );
       return;
